@@ -1,0 +1,12 @@
+name: ui-covariate-extractor
+title: ui-covariate-extractor
+username:
+account: disarm
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 770376
+bundleId: 1920354
+url: https://disarm.shinyapps.io/ui-covariate-extractor/
+when: 1551896490.51617
+asMultiple: FALSE
+asStatic: FALSE
