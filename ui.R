@@ -36,8 +36,9 @@ dashboardPage(
                       "layer",
                       "Layer",
                       c(
-                        "elev_m" = "elev_m",
-                        "dist_to_water_m"
+                        "elev_m",
+                        "dist_to_water_m",
+                        paste0("bioclim", 1:19)
                       ),
                       multiple = TRUE
                     ),
