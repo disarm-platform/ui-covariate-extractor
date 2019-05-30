@@ -33,7 +33,7 @@ shinyServer(function(input, output) {
     if (!is.null(geo_in)) {
       input_geo <- geojson_list(st_read(geo_in$datapath))
     } else{
-      input_geo <- input$geo_text_input
+      input_geo <- geojson_list(st_read(input$geo_text_input))
     }
     
 
@@ -42,7 +42,7 @@ shinyServer(function(input, output) {
       points = input_geo,
       layer_names = paste(input$layer)
     )
-browser()
+
     response <-
       httr::POST(
         url = "https://faas.srv.disarm.io/function/fn-covariate-extractor",
@@ -117,7 +117,7 @@ browser()
   # Handle downloads
   output$downloadData <- downloadHandler(
     filename = function() {
-      paste("extracted_population.csv")
+      paste("extraction.csv")
     },
     content = function(file) {
       map_data_no_geom <- map_data()
@@ -129,7 +129,7 @@ browser()
   
   output$downloadGeoData <- downloadHandler(
     filename = function() {
-      paste("extracted_population.geojson")
+      paste("extraction.geojson")
     },
     content = function(file) {
       st_write(map_data(), file)
