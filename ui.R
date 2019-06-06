@@ -17,7 +17,9 @@ dashboardPage(
                   using", a("this", href = "https://github.com/disarm-platform/fn-covariate-extractor/blob/master/SPECS.md"),
                         " algorithm. 
                       You can run with your own data using the input boxes below, 
-                        or using the prepopulated demo points (4 random points in Swaziland)"),
+                        or using the demo points (4 random points in Swaziland)"),
+                      
+                      actionButton("useDemo", "USE DEMO DATA"),
 
                     width = 2,
                     height = 800,
@@ -33,24 +35,41 @@ dashboardPage(
                     conditionalPanel(condition = "input.GeoJSON_type == 'Local file'",
                                      fileInput("geo_file_input", "")),
                     conditionalPanel(
-                      condition = "input.GeoJSON_type == 'GeoJSON string or URL'",
-                      textInput("geo_text_input", label = NULL, 
+                      condition = "input.GeoJSON_type == 'GeoJSON string or URL' &
+                      input.useDemo == 0",
+                      textInput("geo_text_input", label = NULL)
+                    ),
+                    
+                    conditionalPanel(
+                      condition = "input.useDemo > 0",
+                      textInput("geo_demo_input", label = NULL,
                                 value = "https://www.dropbox.com/s/i7r4ws1hziy45m6/test_points.geojson?dl=1")
                     ),
                     
-                    selectInput(
-                      "layer",
-                      "Layer",
-                      c(
-                        "elev_m",
-                        "dist_to_water_m",
-                        paste0("bioclim", 1:19)
-                      ),
-                      multiple = TRUE
-                    ),
+                    selectizeInput("layer",
+                                   "Layer",
+                                   c(
+                                     "elev_m",
+                                     "dist_to_water_m",
+                                     paste0("bioclim", 1:19)
+                                   ),
+                                   multiple = TRUE,
+                                   options = list(placeholder = 'select a layer')),
+                    # selectInput(
+                    #   "layer",
+                    #   "Layer",
+                    #   c(
+                    #     "elev_m",
+                    #     "dist_to_water_m",
+                    #     paste0("bioclim", 1:19)
+                    #   ),
+                    #   multiple = TRUE
+                    # ),
 
                     
                     br(actionButton("goExtract", "RUN QUERY")),
+
+                    
 
                     conditionalPanel(condition = "input.goExtract > 0",
                                      br(h4("Download results")),  

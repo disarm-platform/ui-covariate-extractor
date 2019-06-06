@@ -26,14 +26,18 @@ shinyServer(function(input, output) {
     
   withProgress(message = 'Crunching data..',{
     
-
     geo_in <- input$geo_file_input
     
     # If input is local file, read in
     if (!is.null(geo_in)) {
       input_geo <- geojson_list(st_read(geo_in$datapath))
     } else{
-      input_geo <- geojson_list(st_read(input$geo_text_input))
+      
+      if(!(input$geo_text_input == "")){
+          input_geo <- geojson_list(st_read(input$geo_text_input))
+      }else{
+          input_geo <- geojson_list(st_read(input$geo_demo_input))
+      }
     }
     
 
