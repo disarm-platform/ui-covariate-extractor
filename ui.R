@@ -55,16 +55,6 @@ dashboardPage(
                                    ),
                                    multiple = TRUE,
                                    options = list(placeholder = 'select a layer')),
-                    # selectInput(
-                    #   "layer",
-                    #   "Layer",
-                    #   c(
-                    #     "elev_m",
-                    #     "dist_to_water_m",
-                    #     paste0("bioclim", 1:19)
-                    #   ),
-                    #   multiple = TRUE
-                    # ),
 
                     
                     br(actionButton("goExtract", "RUN QUERY")),
